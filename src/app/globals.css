@@ -1,0 +1,348 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   THE EGLINTON — "SCOREBOARD" DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Black, white and one signal red. Condensed display type, oversized
+   tabular numerals. Brand colours are PROVISIONAL until the club's logo
+   is supplied: every colour derives from the --brand-* values below.
+   ========================================================================== */
+
+:root {
+  --brand-black: #0a0a0a;
+  --brand-white: #f4f2ee;
+  --brand-red: #c8323c;
+  --brand-red-bright: #e8464f; /* red used as TEXT on black (AA contrast) */
+  --brand-green: #5fd08a; /* positive movement only */
+
+  --black-950: #0a0a0a;
+  --black-900: #111111;
+  --black-850: #161616;
+  --black-800: #1d1d1c;
+  --black-700: #2a2a28;
+  --white-50: #fbfaf8;
+  --white-100: #f4f2ee;
+  --white-200: #e7e4dd;
+  --red-500: #c8323c;
+  --red-600: #a8272f;
+  --red-400: #e8464f;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 280ms;
+  --dur-slow: 560ms;
+
+  --gutter: clamp(1.25rem, 2.8vw, 2.5rem);
+  --header-h: 4.5rem;
+  --max-w: 96rem;
+}
+
+.surface-ink,
+:root {
+  --bg: var(--black-950);
+  --bg-raised: var(--black-900);
+  --bg-sunken: #060606;
+  --fg: var(--white-100);
+  --fg-muted: #a3a19b;
+  --fg-faint: #75736e;
+  --line: color-mix(in oklab, var(--white-100) 11%, transparent);
+  --line-strong: color-mix(in oklab, var(--white-100) 24%, transparent);
+  --accent: var(--red-500);
+  --accent-fg: #ffffff;
+  --accent-text: var(--red-400);
+  --detail: var(--red-400);
+  --positive: var(--brand-green);
+  --negative: var(--red-400);
+  --focus: var(--white-100);
+  --invert-bg: var(--white-100);
+  --invert-fg: var(--black-950);
+  color-scheme: dark;
+}
+
+.surface-paper {
+  --bg: var(--white-100);
+  --bg-raised: var(--white-50);
+  --bg-sunken: var(--white-200);
+  --fg: var(--black-950);
+  --fg-muted: #4d4c48;
+  --fg-faint: #6c6a65;
+  --line: color-mix(in oklab, var(--black-950) 13%, transparent);
+  --line-strong: color-mix(in oklab, var(--black-950) 30%, transparent);
+  --accent: var(--red-500);
+  --accent-fg: #ffffff;
+  --accent-text: var(--red-600);
+  --detail: var(--red-600);
+  --positive: #1f7a45;
+  --negative: var(--red-600);
+  --focus: var(--red-500);
+  --invert-bg: var(--black-950);
+  --invert-fg: var(--white-100);
+  color-scheme: light;
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.surface-red {
+  --bg: var(--red-500);
+  --bg-raised: var(--red-600);
+  --fg: #ffffff;
+  --fg-muted: color-mix(in oklab, #fff 82%, var(--red-500));
+  --fg-faint: color-mix(in oklab, #fff 66%, var(--red-500));
+  --line: color-mix(in oklab, #fff 22%, transparent);
+  --line-strong: color-mix(in oklab, #fff 45%, transparent);
+  --accent: var(--black-950);
+  --accent-fg: #ffffff;
+  --accent-text: #ffffff;
+  --detail: #ffffff;
+  --focus: #ffffff;
+  --invert-bg: #ffffff;
+  --invert-fg: var(--black-950);
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+.surface-ink {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-faint: var(--fg-faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-text: var(--accent-text);
+  --color-detail: var(--detail);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-invert-bg: var(--invert-bg);
+  --color-invert-fg: var(--invert-fg);
+
+  --color-ink-950: var(--black-950);
+  --color-ink-900: var(--black-900);
+  --color-ink-800: var(--black-800);
+  --color-ivory-50: var(--white-50);
+  --color-ivory-100: var(--white-100);
+  --color-ivory-200: var(--white-200);
+  --color-red-brand: var(--red-500);
+  --color-red-bright: var(--red-400);
+  --color-claret-600: var(--red-600);
+  --color-felt-300: var(--brand-green);
+
+  --font-display: "Archivo Variable", "Arial Narrow", Impact, sans-serif;
+  --font-sans: "Inter Tight Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --breakpoint-xs: 25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+/* Lenis smooth scrolling */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  font-feature-settings: "kern", "liga", "calt";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--red-500);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Typography
+   -------------------------------------------------------------------------- */
+
+@utility font-display {
+  font-family: var(--font-display);
+  font-stretch: 62%;
+  font-weight: 800;
+  font-style: normal;
+  letter-spacing: -0.005em;
+}
+
+@utility type-display-xl {
+  font-family: var(--font-display);
+  font-stretch: 62%;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-style: normal;
+  text-wrap: balance;
+  font-size: clamp(3.75rem, 9.2vw + 0.5rem, 10.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.012em;
+}
+
+@utility type-display-l {
+  font-family: var(--font-display);
+  font-stretch: 62%;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-style: normal;
+  text-wrap: balance;
+  font-size: clamp(3rem, 5.6vw + 0.6rem, 6.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.008em;
+}
+
+@utility type-display-m {
+  font-family: var(--font-display);
+  font-stretch: 62%;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-style: normal;
+  text-wrap: balance;
+  font-size: clamp(2.25rem, 3.2vw + 0.75rem, 4rem);
+  line-height: 0.9;
+}
+
+@utility type-display-s {
+  font-family: var(--font-display);
+  font-stretch: 62%;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-style: normal;
+  text-wrap: balance;
+  font-size: clamp(1.625rem, 1.2vw + 1.1rem, 2.25rem);
+  line-height: 0.95;
+}
+
+@utility type-lede {
+  font-size: clamp(1.0625rem, 0.35vw + 0.98rem, 1.25rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+@utility type-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@utility type-label {
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+@utility nums {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum", "lnum";
+}
+
+/* Emphasis inside display headings is set as outline type. */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+  -webkit-text-stroke-color: var(--fg);
+}
+
+:where(h1, h2, h3, .type-display-xl, .type-display-l, .type-display-m, .type-display-s) em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: clamp(1px, 0.12vw, 2px) var(--fg);
+}
+
+/* Legacy italic numerals become upright condensed numerals. */
+.font-display.italic,
+.font-display .italic {
+  font-style: normal;
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@utility hairline {
+  border-color: var(--line);
+}
+
+/* Subtle vertical "scoreboard" grid lines for photo placeholders. */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(90deg, transparent 0 23px, rgba(255, 255, 255, 0.035) 23px 24px);
+  }
+}
+
+@utility link-rule {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--dur-base) var(--ease-out);
+  &:hover {
+    background-size: 0% 2px;
+    background-position: 100% 100%;
+  }
+}
+
+@utility select-reset {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23999' stroke-width='1.75'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
