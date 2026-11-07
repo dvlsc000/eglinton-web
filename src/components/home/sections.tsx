@@ -8,6 +8,7 @@ import { TournamentRow, TournamentTableHead } from "@/components/tournaments/bit
 import { RankDelta } from "@/components/leagues/bits";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
 import { CountUp, Drift, GrowBar, Magnetic, Marquee, Parallax, SplitReveal } from "@/components/motion/kinetic";
+import { ChipTowers } from "@/components/home/chip-towers";
 import { formatCalendarDate, formatDayMonth, formatEuro, formatTime, formatWeekdayShort, buyInTotal } from "@/domain/format";
 
 /* -------------------------------------------------------------------------- */
@@ -194,9 +195,18 @@ export function FeaturedSeries({ event, tournaments, isDemo }: { event: Featured
           </Reveal>
         </div>
         <div className="lg:col-span-7">
-          <Parallax offset={50} className="aspect-[16/9] w-full">
-            <PhotoSlot image={event.image} tone="claret" className="absolute inset-0" />
-          </Parallax>
+          <Reveal className="relative aspect-[4/3] w-full sm:aspect-[16/9]">
+            <ChipTowers
+              image={event.image}
+              events={main.map((t) => ({
+                id: t.id,
+                name: t.name.replace(/^.*·\s*/, ""),
+                day: `${formatWeekdayShort(t.startsAt)} ${formatDayMonth(t.startsAt)}`,
+                guaranteeCents: t.guaranteeCents ?? null,
+                guaranteeLabel: t.guaranteeCents ? formatEuro(t.guaranteeCents) : "—",
+              }))}
+            />
+          </Reveal>
           {main.length > 0 && (
             <RevealGroup step={0.08}>
               <ol className="mt-2">
