@@ -59,6 +59,7 @@ Built with **Motion for React**, plus **Lenis** for inertial scrolling. Tokens i
 | Count-up numbers | `CountUp` | Guarantees, league funds, points |
 | Growing bars | `GrowBar` / inline | Leaderboard and home league table |
 | Scroll parallax | `Parallax`, hero transforms | Photography, hero copy and media |
+| The deal | `DealTable` (`components/home/deal-table.tsx`) | Home hero: a full hold'em hand in one Motion sequence. Burn cards, the flop lands as a stack and spreads, a held beat before the river, winning cards lift at showdown. Cards are drawn in HTML/SVG; sizes use container units so the table reflows with the panel. Tilts toward the mouse; reduced-motion shows the finished hand. "Deal again" replays it |
 | Sideways drift type | `Drift` | Featured series |
 | Reading progress | `ScrollProgress` | Red line at the very top |
 | Page transition | `app/template.tsx` | Red curtain lifts on every navigation (not on first load) |

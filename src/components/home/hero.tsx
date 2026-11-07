@@ -6,7 +6,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { ArrowUpRight } from "lucide-react";
 import type { SiteContent } from "@/content/types";
 import type { Tournament } from "@/domain/schemas";
-import { PhotoSlot } from "@/components/ui/photo-slot";
+import { DealTable } from "@/components/home/deal-table";
 import { Magnetic, SplitReveal } from "@/components/motion/kinetic";
 import { StatusBadge } from "@/components/tournaments/bits";
 import { buyInTotal, formatChipsShort, formatDayMonth, formatEuro, formatTime, formatWeekdayShort } from "@/domain/format";
@@ -34,13 +34,11 @@ export function Hero({ hero, next, isDemo }: { hero: SiteContent["hero"]; next: 
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-12%"]);
 
   return (
     <section ref={ref} className="surface-ink relative overflow-hidden border-b border-line" aria-labelledby="hero-title">
-      <div className="grid lg:min-h-[calc(100svh-var(--header-h)-2rem)] lg:grid-cols-[1.2fr_1fr]">
+      <div className="grid grid-cols-1 lg:min-h-[calc(100svh-var(--header-h)-2rem)] lg:grid-cols-[1.2fr_1fr]">
         {/* Copy */}
         <motion.div style={{ y: reduce ? 0 : textY }} className="relative flex flex-col justify-center px-[var(--gutter)] pt-14 pb-14 lg:border-r lg:border-line lg:py-20">
           <motion.p
@@ -100,11 +98,10 @@ export function Hero({ hero, next, isDemo }: { hero: SiteContent["hero"]; next: 
             initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
             animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
             transition={{ duration: 1.3, ease: ease.inOut, delay: 0.1 }}
-            className="relative min-h-[22rem] flex-1 overflow-hidden"
+            className="relative min-h-[24rem] flex-1 overflow-hidden"
           >
-            <motion.div className="absolute inset-0" style={{ y: reduce ? 0 : mediaY, scale: reduce ? 1 : mediaScale }}>
-              <PhotoSlot image={hero.image} tone="claret" priority className="absolute inset-0" sizes="(min-width: 1024px) 45vw, 100vw" />
-            </motion.div>
+            {/* The deal: a full hand of hold'em. The venue photograph sits behind it once supplied. */}
+            <DealTable image={hero.image} startDelay={1.1} />
           </motion.div>
 
           {next && (
