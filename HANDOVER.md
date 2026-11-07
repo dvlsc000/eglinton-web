@@ -28,7 +28,7 @@ A complete, working demo of the proposed website, ready to show the club. It bui
 
 ## Placeholders awaiting the club
 
-- **Logo.** The original could not be retrieved. The header shows the club's name in plain type — no invented mark. Drop the file into `public/brand/` and set `SITE_CONTENT.brand.logo.src`.
+- **Logo.** The club crest is installed (`public/brand/eglinton-crest.png`, maroon field removed; original kept beside it). It appears beside the wordmark in the header, mobile menu and footer, on the card backs in the home deal animation, and as the favicon (`src/app/icon.png`, `apple-icon.png`). The supplied file is only 80×88px: ask the club for an SVG or a large PNG and swap it in via `SITE_CONTENT.brand.logo`.
 - **Brand colours.** Tokens are provisional (see DESIGN.md §3). Adjust the five `--brand-*` values once the logo is in hand.
 - **Photography.** Every image slot shows a brief of the photograph it needs. Add files to `public/photography/` and set `src` in `src/content/site.ts`.
 - **Map pin** coordinates are approximate.
@@ -41,4 +41,4 @@ A complete, working demo of the proposed website, ready to show the club. It bui
 4. Re-check support-service numbers on `/responsible-gaming` (sourced from the GRAI "Get help" page, Nov 2026).
 5. Player-name publication policy and opt-out agreed.
 6. Set `NEXT_PUBLIC_SITE_URL`, deploy, then measure Lighthouse/Core Web Vitals on the real host (not measured here).
-7. Add a favicon/app icon derived from the real logo.
+7. Replace the crest, favicon and app icon with a high-resolution original when supplied.

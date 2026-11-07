@@ -456,17 +456,14 @@ body {
     repeating-linear-gradient(-45deg, transparent 0 5px, rgba(0, 0, 0, 0.2) 5px 6px),
     var(--card-back);
 }
+/* Card back: the club crest on a maroon medallion with a thin gold ring. */
 .deal-back::after {
-  content: "E";
+  content: "";
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-stretch: 62%;
-  font-weight: 800;
-  font-size: calc(var(--cw) * 0.46);
-  color: var(--card-paper);
+  background:
+    url("/brand/eglinton-crest.png") center / 52% auto no-repeat,
+    radial-gradient(closest-side circle at 50% 50%, #3a0000 0 74%, #c9a35f 75% 79%, transparent 80%) center / calc(var(--cw) * 0.8) calc(var(--cw) * 0.8) no-repeat;
 }
 .deal-corner {
   position: absolute;

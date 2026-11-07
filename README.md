@@ -2,7 +2,7 @@
 
 A working, multi-page redesign of [theeglinton.com](https://theeglinton.com) for The Eglinton Casino & Card Club, Eglinton Street, Galway. It runs on demonstration data today and is built to switch to the club's real tournament and league data without changes to any page.
 
-> **Demonstration build.** Schedules, players, standings and results are generated sample data. The logo and venue photography are placeholders awaiting the club's originals. See [HANDOVER.md](./HANDOVER.md).
+> **Demonstration build.** Schedules, players, standings and results are generated sample data. The club crest is in place (from a small 80×88 source); venue photography is a placeholder awaiting the club's originals. See [HANDOVER.md](./HANDOVER.md).
 
 ## Requirements
 

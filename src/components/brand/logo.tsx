@@ -3,22 +3,37 @@ import { cn } from "@/lib/cn";
 import { SITE_CONTENT } from "@/content/site";
 
 /**
- * LOGO SLOT — the club's ORIGINAL logo belongs here.
+ * The club's crest beside the "The Eglinton" wordmark.
  *
- * The original artwork could not be retrieved from the build environment.
- * Until it is supplied, this renders the club's name in the display face
- * (no invented symbol). To install the real logo:
- *   1. Put the file in /public/brand/ (SVG preferred, transparent PNG fine).
- *   2. Set SITE_CONTENT.brand.logo.src (and width/height) in src/content/site.ts.
+ * The crest file lives in /public/brand/ and is set in
+ * SITE_CONTENT.brand.logo (src/content/site.ts). With `src: null` only the
+ * wordmark renders.
+ *
+ *   md — header and mobile menu
+ *   lg — larger inline uses
+ *   xl — footer: crest above a full-width wordmark
  */
 export function Logo({ className, size = "md" }: { className?: string; size?: "md" | "lg" | "xl" }) {
   const { logo, name } = SITE_CONTENT.brand;
-  if (logo.src) {
-    const scale = size === "xl" ? 2.4 : size === "lg" ? 1.6 : 1;
-    return <Image src={logo.src} alt={logo.alt} width={logo.width * scale} height={logo.height * scale} priority className={cn("h-auto", className)} />;
-  }
-  return (
-    <span data-placeholder="logo" aria-label={name} className={cn("inline-flex items-center gap-2 leading-none text-fg", className)}>
+
+  const crest = logo.src ? (
+    <Image
+      src={logo.src}
+      alt=""
+      aria-hidden
+      width={logo.width}
+      height={logo.height}
+      priority={size !== "xl"}
+      sizes={size === "xl" ? "120px" : size === "lg" ? "60px" : "44px"}
+      className={cn(
+        "w-auto shrink-0 select-none",
+        size === "xl" ? "h-[clamp(4.5rem,8vw,7.5rem)]" : size === "lg" ? "h-14" : "h-10"
+      )}
+    />
+  ) : null;
+
+  const wordmark = (
+    <span className="inline-flex items-center gap-2 leading-none">
       <span
         aria-hidden
         className={cn(
@@ -28,7 +43,25 @@ export function Logo({ className, size = "md" }: { className?: string; size?: "m
       >
         The Eglinton
       </span>
-      <span aria-hidden className={cn("shrink-0 rounded-full bg-red-brand", size === "xl" ? "size-[clamp(0.9rem,2.4vw,2.5rem)] self-end mb-[1.2vw]" : size === "lg" ? "size-3" : "size-2")} />
+      <span
+        aria-hidden
+        className={cn("shrink-0 rounded-full bg-red-brand", size === "xl" ? "mb-[1.2vw] size-[clamp(0.9rem,2.4vw,2.5rem)] self-end" : size === "lg" ? "size-3" : "size-2")}
+      />
+    </span>
+  );
+
+  return (
+    <span
+      role="img"
+      aria-label={name}
+      className={cn(
+        "inline-flex text-fg",
+        size === "xl" ? "flex-col items-start gap-[clamp(1rem,2vw,2rem)]" : "items-center gap-3",
+        className
+      )}
+    >
+      {crest}
+      {wordmark}
     </span>
   );
 }

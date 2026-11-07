@@ -14,8 +14,9 @@ export const SITE_CONTENT: SiteContent = {
   brand: {
     name: "The Eglinton Casino & Card Club",
     shortName: "The Eglinton",
-    // Drop the original artwork into /public/brand/ and set `src`, e.g. "/brand/eglinton-logo.svg".
-    logo: { src: null, width: 180, height: 48, alt: "The Eglinton Casino & Card Club" },
+    // The club's crest, lifted off its maroon field (original kept at /brand/eglinton-crest-original.png).
+    // Source artwork is 80×88px; swap in an SVG or a large PNG when the club supplies one.
+    logo: { src: "/brand/eglinton-crest.png", width: 228, height: 244, alt: "The Eglinton crest" },
   },
 
   hero: {
