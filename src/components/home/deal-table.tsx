@@ -122,7 +122,7 @@ export function DealTable({ image, startDelay = 0.9 }: { image?: ContentImage; s
   const tiltY = useSpring(0, { stiffness: 120, damping: 20 });
 
   const run = useCallback(
-    (instant: boolean) => {
+    (instant: boolean, lead = 0.6) => {
       const stage = stageRef.current;
       if (!stage) return;
       controls.current?.stop();
@@ -147,7 +147,7 @@ export function DealTable({ image, startDelay = 0.9 }: { image?: ContentImage; s
       const origin = (el: HTMLElement) => ({ x: top.offsetLeft - el.offsetLeft, y: top.offsetTop - el.offsetTop });
 
       const seq: AnimationSequence = [];
-      const t0 = instant ? 0 : startDelay;
+      const t0 = instant ? 0 : lead;
 
       /** Card leaves the deck, overshoots its angle, settles. */
       const deal = (el: HTMLElement, at: number, rot: number, tx = 0, dur = 0.55) => {
@@ -260,19 +260,22 @@ export function DealTable({ image, startDelay = 0.9 }: { image?: ContentImage; s
       if (instant) c.complete();
       c.then(() => setDone(true));
     },
-    [pot, street, startDelay]
+    [pot, street]
   );
 
   // Deal once the table is on screen (on phones it sits below the fold).
+  // Building the sequence is a one-off ~25ms task, so it waits until the
+  // hero's own intro has settled; the deck starts falling as it is built.
   const inView = useInView(stageRef, { once: true, amount: 0.4 });
   useEffect(() => {
     if (!inView) return;
-    const raf = requestAnimationFrame(() => run(!!reduce));
+    const wait = reduce ? 0 : Math.max(0, startDelay - 0.6) * 1000;
+    const id = window.setTimeout(() => run(!!reduce, 0.6), wait);
     return () => {
-      cancelAnimationFrame(raf);
+      window.clearTimeout(id);
       controls.current?.stop();
     };
-  }, [inView, run, reduce]);
+  }, [inView, run, reduce, startDelay]);
 
   // Layout changed mid-deal: jump to the finished hand (final positions are layout-relative).
   useEffect(() => {

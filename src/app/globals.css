@@ -359,6 +359,7 @@ body {
   inset: 0;
   overflow: hidden;
   container-type: size;
+  contain: paint;
   isolation: isolate;
   --cw: clamp(40px, min(12.5cqw, 16cqh), 100px);
   --ch: calc(var(--cw) * 1.4);
@@ -414,11 +415,13 @@ body {
   inset: 0;
   border-radius: calc(var(--cw) * 0.08);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.7);
+  will-change: transform, opacity;
 }
 .deal-flip {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
+  will-change: transform;
 }
 .deal-face {
   position: absolute;
@@ -544,6 +547,7 @@ body {
   left: calc(50% - var(--chip) / 2 + var(--cx, 0px));
   top: calc(54% - var(--k) * 3px);
   border-radius: 50%;
+  will-change: transform;
   background:
     radial-gradient(circle, var(--card-back) 0 42%, var(--card-paper) 43% 46%, var(--card-back) 47% 61%, transparent 62%),
     repeating-conic-gradient(from 8deg, var(--card-paper) 0 15deg, var(--card-back) 15deg 45deg);

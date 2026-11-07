@@ -101,7 +101,7 @@ export function Hero({ hero, next, isDemo }: { hero: SiteContent["hero"]; next: 
             className="relative min-h-[24rem] flex-1 overflow-hidden"
           >
             {/* The deal: a full hand of hold'em. The venue photograph sits behind it once supplied. */}
-            <DealTable image={hero.image} startDelay={1.1} />
+            <DealTable image={hero.image} startDelay={1.5} />
           </motion.div>
 
           {next && (
